@@ -16,15 +16,9 @@ exports.createUser = (req, res) => {
 
 exports.userList = (req, res) => {
     console.log('userList ran');
-    User.find({}, (err, users) => {
-        var userMap = {};
-
-        users.forEach((user) => {
-            userMap[user._id] = user;
-        });
-
-        res.send(userMap);
-    })
+    User.find()
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json({error: "Error"}))
 }
 
 exports.viewUser = (req, res) => {
