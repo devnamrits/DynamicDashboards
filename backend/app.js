@@ -7,7 +7,11 @@ const bodyParser = require('body-parser');
 const adminRoutes = require('./routes/admin')
 const connectDB = require('./config/db')
 
+var cors = require('cors')
+
 connectDB();
+
+app.use(cors({origin: true, credentials: true}));
 
 app.use(bodyParser.urlencoded({extended: false}));
 
