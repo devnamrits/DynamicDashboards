@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
-    empid: {
+    _id: {
         type: String,
-        requiered: true
+        required: true,
+        unique: true
     },
     name: {
         type: String,
@@ -13,4 +14,4 @@ var userSchema = new mongoose.Schema({
     phone: Number
 })
 
-module.exports = User = mongoose.model('user',userSchema);
+module.exports = User = mongoose.model('user', userSchema);
