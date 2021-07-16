@@ -1,7 +1,7 @@
 import { Table, TableBody, TableHead, TableRow, TableCell, TableContainer, Paper } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 import AddUser from './AddUser';
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function PredictionTable() {
+export default function UserDisplay() {
 
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState("");

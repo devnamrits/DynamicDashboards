@@ -8,6 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,6 +25,7 @@ export default function FormDialog() {
     const [id,setid] = useState()
     const [name,setname] = useState();
     const [age,setage] = useState();
+    const history = useHistory();
 
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
@@ -32,6 +34,7 @@ export default function FormDialog() {
 
     const handleClose = () => {
         setOpen(false);
+        history.push('/user-detail')
     };
 
     const submit = (e) => {
@@ -56,7 +59,6 @@ export default function FormDialog() {
         console.log("Error in creating user!");
       })
     }
-
     return (
         <div>
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
