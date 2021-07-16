@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,9 +12,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import Paper from '@material-ui/core/Paper';
 
-import UsersDisplay from './UsersDisplay';
+import HomePage from './Homepage';
+import GroupPage from './Groups/GroupPage';
+import UserPage from './Users/UserPage';
 
 
 const drawerWidth = 240;
@@ -44,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ClippedDrawer() {
   const classes = useStyles();
+  const [navLink, setNavLink] = useState("home");
+
 
   return (
     <div className={classes.root}>
@@ -65,12 +68,15 @@ export default function ClippedDrawer() {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {['Home', 'Users', 'Group', 'Notifications'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+          {["Home", "Users", "Groups"].map((text, index) => (
+            <ListItem
+              button
+              key={text}
+              onClick={(e) => setNavLink(text.toLowerCase())}
+            >
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
           </List>
           <Divider />
           <List>
@@ -85,7 +91,13 @@ export default function ClippedDrawer() {
       </Drawer>
       <main className={classes.content}>
         <Toolbar />
-        <UsersDisplay/>
+        {navLink === "home" ? (
+          <HomePage />
+        ) : navLink === "users" ? (
+          <UserPage/>
+        ) : navLink === "groups" ? (
+          <GroupPage/>
+        ): (<h1>nothing</h1>)}
         
       </main>
     </div>
