@@ -1,61 +1,65 @@
-import { Component } from "react";
-import { Table, TableCell, TableContainer, TableRow, TableHead } from '@material-ui/core'
+import { Table, TableBody, TableHead, TableRow, TableCell, TableContainer, Paper } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+
+import AddUser from './AddUser';
+
+const borderValue = '1px solid black';
+const useStyles = makeStyles((theme) => ({
+    table: {
+        minWidth: 650,
+    },
+}))
 
 
 
-class UsersDisplay extends Component {
+export default function PredictionTable() {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: null,
-            isLoaded: false,
-            data: [],
-        };
-    }
+    const [loaded, setLoaded] = useState(false);
+    const [error, setError] = useState("");
+    const [data, setData] = useState([]);
 
-    componentDidMount() {
+    const classes = useStyles();
 
+    useEffect(() => {
         fetch("http://localhost:2000/userlist", {
             method: 'GET',
-            mode: 'cors'
+            mode: 'cors',
         })
-            .then(res => res.json())
+            .then(res => res.clone().json())
             .then(
                 (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        data: result
-                    });
+                    setLoaded(true);
+                    setData(result);
                 },
                 (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
+                    setLoaded(true);
+                    setError(error);
                 }
             );
-        //console.log('Data: ', this.state.data);
-    }
+    }, [])
 
-    render() {
-        const { error, isLoaded, data } = this.state;
-        console.log('Data:', this.state.data);
-        if (error) {
-            return <div>Error: {error.message}</div>;
-        } else if (!isLoaded) {
-            return <div>Loading...</div>;
-        } else {
-            return (
-                <div>
+
+    console.log(data);
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    } else if (!loaded) {
+        return <div>Loading...</div>;
+    } else {
+        return (
+            <div>
+                <TableContainer component={Paper}>
+                    <AddUser />
                     <h1>User Details</h1>
-                    <TableContainer>
-                        <Table>
-                            <TableHead>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
                                 <TableCell>Id</TableCell>
                                 <TableCell>Name</TableCell>
                                 <TableCell>Age</TableCell>
-                            </TableHead>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
                             {data.map(
                                 (item, index) => (
                                     <TableRow>
@@ -65,15 +69,10 @@ class UsersDisplay extends Component {
                                     </TableRow>
                                 )
                             )}
-                        </Table>
-                    </TableContainer>
-                    <table >
-
-                    </table>
-                </div>
-            );
-        }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+        );
     }
-
 }
-export default UsersDisplay;

@@ -16,6 +16,7 @@ import Paper from '@material-ui/core/Paper';
 
 import UsersDisplay from './UsersDisplay';
 
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -84,7 +85,7 @@ export default function ClippedDrawer() {
       </Drawer>
       <main className={classes.content}>
         <Toolbar />
-        <UserDisplay/>
+        <UsersDisplay/>
         
       </main>
     </div>
