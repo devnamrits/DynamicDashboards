@@ -20,4 +20,7 @@ router.post('/creategroup', groupController.createGroup);
 
 router.put('/updategroup/:id', groupController.updateGroup);
 
+router.put('/addusergroup/:id', groupController.addUserInGroup);
+
+router.put('/deleteusergroup/:id', groupController.deleteUserInGroup);
 exports.routes = router;
