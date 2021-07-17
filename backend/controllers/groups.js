@@ -9,3 +9,11 @@ exports.createGroup = (req,res) => {
         console.log(err);
     })
 }
+
+
+exports.updateGroup = (req, res) => {
+    console.log('updateGroup ran')
+    Group.findByIdAndUpdate(req.params.id, req.body)
+        .then(user => res.json({ msg: 'Updated Successfully' }))
+        .catch(err => res.status(400).json({ error: "Unable to update" }))
+}

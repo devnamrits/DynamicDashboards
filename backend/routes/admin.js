@@ -18,4 +18,6 @@ router.delete('/:id', usersController.deleteUser);
 
 router.post('/creategroup', groupController.createGroup);
 
+router.put('/updategroup/:id', groupController.updateGroup);
+
 exports.routes = router;
